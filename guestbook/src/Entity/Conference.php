@@ -6,6 +6,7 @@ use App\Repository\ConferenceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 #[ORM\Entity(repositoryClass: ConferenceRepository::class)]
 class Conference
@@ -25,11 +26,16 @@ class Conference
     private bool $isInternational;
 
     #[ORM\OneToMany(mappedBy: 'conference', targetEntity: Comment::class, orphanRemoval: true)]
-    private ArrayCollection $comments;
+    private $comments;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return "{$this->city} {$this->year}";
     }
 
     public function getId(): ?int

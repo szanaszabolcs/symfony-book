@@ -31,7 +31,12 @@ class Comment
     private Conference $conference;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $photoFilename;
+    private string $photoFilename;
+
+    public function __toString(): string
+    {
+        return (string) $this->getEmail();
+    }
 
     public function getId(): ?int
     {
